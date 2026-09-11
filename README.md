@@ -14,25 +14,25 @@ This site uses the **Nyuchi Brand System v6** featuring the Five African Mineral
 
 ### Five African Minerals
 
-| Mineral | Light Mode | Dark Mode | Origin |
-|---------|------------|-----------|--------|
-| Cobalt | `#0047AB` | `#00B0FF` | Katanga (DRC), Zambian Copperbelt |
-| Tanzanite | `#4B0082` | `#B388FF` | Merelani Hills, Tanzania |
-| Malachite | `#004D40` | `#64FFDA` | Congo Copper Belt |
-| Gold | `#5D4037` | `#FFD740` | Ghana, South Africa, Mali |
-| Terracotta | `#8B4513` | `#D4A574` | Pan-African Earth |
+| Mineral    | Light Mode | Dark Mode | Origin                            |
+| ---------- | ---------- | --------- | --------------------------------- |
+| Cobalt     | `#0047AB`  | `#00B0FF` | Katanga (DRC), Zambian Copperbelt |
+| Tanzanite  | `#4B0082`  | `#B388FF` | Merelani Hills, Tanzania          |
+| Malachite  | `#004D40`  | `#64FFDA` | Congo Copper Belt                 |
+| Gold       | `#5D4037`  | `#FFD740` | Ghana, South Africa, Mali         |
+| Terracotta | `#8B4513`  | `#D4A574` | Pan-African Earth                 |
 
 ### 7 Brand Families
 
-| Brand | Primary | Purpose |
-|-------|---------|---------|
-| Bundu Family | Terracotta | Parent entity |
-| Nyuchi Platform | Gold | Commerce, honey rewards |
-| Mukoko Platform | Tanzanite | Social, news, auth |
-| Shamwari AI | Malachite | AI companion |
-| Travel Brand | Malachite | Zimbabwe exploration |
-| Education Brand | Cobalt | Learning, Lingo |
-| Community Brand | Terracotta | Foundation, Ubuntu |
+| Brand           | Primary    | Purpose                 |
+| --------------- | ---------- | ----------------------- |
+| Bundu Family    | Terracotta | Parent entity           |
+| Nyuchi Platform | Gold       | Commerce, honey rewards |
+| Mukoko Platform | Tanzanite  | Social, news, auth      |
+| Shamwari AI     | Malachite  | AI companion            |
+| Travel Brand    | Malachite  | Zimbabwe exploration    |
+| Education Brand | Cobalt     | Learning, Lingo         |
+| Community Brand | Terracotta | Foundation, Ubuntu      |
 
 ### Design Tokens
 
@@ -48,11 +48,11 @@ We publish design system packages on npm:
 npm install @nyuchi/theme @nyuchi/ui @nyuchi/ubuntu
 ```
 
-| Package | Description |
-|---------|-------------|
-| [@nyuchi/theme](https://www.npmjs.com/package/@nyuchi/theme) | Design tokens for all 7 brands (v2.0.0) |
-| [@nyuchi/ui](https://www.npmjs.com/package/@nyuchi/ui) | Material UI components and themes (v1.0.0) |
-| [@nyuchi/ubuntu](https://www.npmjs.com/package/@nyuchi/ubuntu) | Ubuntu philosophy utilities (v1.0.0) |
+| Package                                                        | Description                                |
+| -------------------------------------------------------------- | ------------------------------------------ |
+| [@nyuchi/theme](https://www.npmjs.com/package/@nyuchi/theme)   | Design tokens for all 7 brands (v2.0.0)    |
+| [@nyuchi/ui](https://www.npmjs.com/package/@nyuchi/ui)         | Material UI components and themes (v1.0.0) |
+| [@nyuchi/ubuntu](https://www.npmjs.com/package/@nyuchi/ubuntu) | Ubuntu philosophy utilities (v1.0.0)       |
 
 ## Featured Projects
 
@@ -83,7 +83,7 @@ Simply open `index.html` in a browser to preview the site locally.
 - **Assets CDN:** [assets.nyuchi.com](https://assets.nyuchi.com)
 - **Website:** [nyuchi.com](https://www.nyuchi.com)
 - **GitHub:** [github.com/nyuchitech](https://github.com/nyuchitech)
-- **Email:** bryan@nyuchi.com
+- **Email:** <bryan@nyuchi.com>
 
 ---
 
