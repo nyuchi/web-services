@@ -1,90 +1,90 @@
 # Nyuchi Web Services
 
-The official showcase website for Nyuchi - displaying all projects, tools, and services from the Nyuchi organization.
+> The static showcase site at services.nyuchi.com — a single page listing
+> Nyuchi's projects and tools.
 
-**Live Site:** [services.nyuchi.com](https://services.nyuchi.com)
+[![Lint](https://github.com/nyuchi/web-services/actions/workflows/lint.yml/badge.svg)](https://github.com/nyuchi/web-services/actions/workflows/lint.yml)
+![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-deployed-222222?style=flat-square&logo=githubpages&logoColor=white)
+![Static](https://img.shields.io/badge/Stack-HTML_+_CSS-E34F26?style=flat-square&logo=html5&logoColor=white)
 
-## About
-
-This is the development hub showcase for [Nyuchi](https://www.nyuchi.com), a Pan-African tech company based in Harare, Zimbabwe. We're building programs and applications for improved outcomes across Africa.
-
-## Brand System v6
-
-This site uses the **Nyuchi Brand System v6** featuring the Five African Minerals palette - all achieving WCAG AAA (7:1+) contrast.
-
-### Five African Minerals
-
-| Mineral    | Light Mode | Dark Mode | Origin                            |
-| ---------- | ---------- | --------- | --------------------------------- |
-| Cobalt     | `#0047AB`  | `#00B0FF` | Katanga (DRC), Zambian Copperbelt |
-| Tanzanite  | `#4B0082`  | `#B388FF` | Merelani Hills, Tanzania          |
-| Malachite  | `#004D40`  | `#64FFDA` | Congo Copper Belt                 |
-| Gold       | `#5D4037`  | `#FFD740` | Ghana, South Africa, Mali         |
-| Terracotta | `#8B4513`  | `#D4A574` | Pan-African Earth                 |
-
-### 7 Brand Families
-
-| Brand           | Primary    | Purpose                 |
-| --------------- | ---------- | ----------------------- |
-| Bundu Family    | Terracotta | Parent entity           |
-| Nyuchi Platform | Gold       | Commerce, honey rewards |
-| Mukoko Platform | Tanzanite  | Social, news, auth      |
-| Shamwari AI     | Malachite  | AI companion            |
-| Travel Brand    | Malachite  | Zimbabwe exploration    |
-| Education Brand | Cobalt     | Learning, Lingo         |
-| Community Brand | Terracotta | Foundation, Ubuntu      |
-
-### Design Tokens
-
-- **Button Radius:** 12px (warm, modern)
-- **Card Radius:** 16px
-- **Flag Strip:** 4px vertical on left edge
-
-## NPM Packages
-
-We publish design system packages on npm:
-
-```bash
-npm install @nyuchi/theme @nyuchi/ui @nyuchi/ubuntu
-```
-
-| Package                                                        | Description                                |
-| -------------------------------------------------------------- | ------------------------------------------ |
-| [@nyuchi/theme](https://www.npmjs.com/package/@nyuchi/theme)   | Design tokens for all 7 brands (v2.0.0)    |
-| [@nyuchi/ui](https://www.npmjs.com/package/@nyuchi/ui)         | Material UI components and themes (v1.0.0) |
-| [@nyuchi/ubuntu](https://www.npmjs.com/package/@nyuchi/ubuntu) | Ubuntu philosophy utilities (v1.0.0)       |
-
-## Featured Projects
-
-- **Nyuchi Main Platform** - Consolidated API and platform services
-- **Mukoko** - Privacy-first social ecosystem (ID, Clips, Pulse, Connect, Novels, Events)
-- **Mukoko News** - Pan-African aggregated news source
-- **Nyuchi Learning** - Digital learning experiences for Africa
-- **Workspace Tools** - Gmail Add-on and Email Signature Generator
-- **MailSense** - Email management tool
-
-## Ubuntu Philosophy
-
-**Core Principle:** "Ndiri nekuti tiri" - I am because we are
-
-The Bundu Family brand ecosystem is rooted in Ubuntu philosophy with five pillars: Family, Community, Society, Environment, and Spirituality.
-
-## Deployment
-
-This site is automatically deployed to GitHub Pages when changes are pushed to the `main` branch.
-
-## Local Development
-
-Simply open `index.html` in a browser to preview the site locally.
-
-## Resources
-
-- **Brand Site:** [brand.nyuchi.com](https://brand.nyuchi.com)
-- **Assets CDN:** [assets.nyuchi.com](https://assets.nyuchi.com)
-- **Website:** [nyuchi.com](https://www.nyuchi.com)
-- **GitHub:** [github.com/nyuchitech](https://github.com/nyuchitech)
-- **Email:** <bryan@nyuchi.com>
+**Live:** [services.nyuchi.com](https://services.nyuchi.com) | **Deploy:** GitHub Pages on push to `main` | **Status:** unchanged since December 2025
 
 ---
 
-Built with Ubuntu philosophy for the African tech community. Harare, Zimbabwe.
+## What it is
+
+Two files and a CNAME: `index.html` (360 lines) and `styles.css` (817 lines).
+There is no build step, no framework and no JavaScript bundle. GitHub Pages
+serves it at [services.nyuchi.com](https://services.nyuchi.com) whenever `main`
+changes.
+
+The page introduces [Nyuchi](https://www.nyuchi.com) — a Pan-African technology
+company based in Harare, Zimbabwe — and lists its projects as cards linking to
+their GitHub repositories.
+
+Nothing substantive has changed here since 16 December 2025.
+
+## Local development
+
+Open `index.html` in a browser. That is the whole workflow.
+
+## Maintenance notes
+
+The page and this README have both drifted from what is true elsewhere in the
+estate. Three things to know before editing:
+
+### The project links point at a GitHub org that no longer exists
+
+Every project card in `index.html` links to `github.com/nyuchitech/<repo>`. The
+`nyuchitech` organisation was renamed to `nyuchi`, so the organisation URL
+itself is now a 404. Individual repository URLs still work because GitHub
+redirects renamed owners, but they should be rewritten to `github.com/nyuchi/`.
+Two of them do not redirect anywhere, because the repositories no longer exist
+under those names: `nyuchitech/nyuchi-main` and `nyuchitech/mukoko-docs`.
+
+### The palette is 21 colour families, not five
+
+`styles.css` defines five mineral tokens — cobalt, tanzanite, malachite, gold
+and terracotta — and labels them, in a comment on line 1 and again on lines 4
+and 14, as the "Five African Minerals". That label is wrong, and it is a known
+bug that propagated through several repositories.
+
+The shared palette has **21 colour families** in three groups of seven:
+
+| Group        | Count | Families                                                         |
+| ------------ | ----: | ---------------------------------------------------------------- |
+| Minerals     |     7 | cobalt, tanzanite, malachite, gold, terracotta, sodalite, copper |
+| Heritage     |     7 | indigo, savanna, baobab, sunset, river, hematite, kalahari       |
+| Experimental |     7 | ember, acacia, fern, lagoon, storm, dusk, protea                 |
+
+This site implements five of the seven minerals. That is a legitimate subset —
+describing it as the whole palette is not. The tokens it does define carry
+WCAG AAA contrast ratios against the site's cream and charcoal grounds, recorded
+in the comments beside each one.
+
+### The npm packages listed here were wrong
+
+The previous version of this README told readers to run
+`npm install @nyuchi/theme @nyuchi/ui @nyuchi/ubuntu` and gave version numbers
+for all three. Checked against the registry:
+
+| Package          | Registry state           | Previously claimed |
+| ---------------- | ------------------------ | ------------------ |
+| `@nyuchi/theme`  | **Does not exist** (404) | v2.0.0             |
+| `@nyuchi/ui`     | Published, latest 0.1.2  | v1.0.0             |
+| `@nyuchi/ubuntu` | Published, latest 1.0.0  | v1.0.0             |
+
+The install line has been removed rather than corrected, because a third of it
+cannot be installed.
+
+### Dead links removed from this README
+
+`brand.nyuchi.com` does not resolve and `assets.nyuchi.com` returns 404. Both
+were listed under "Resources" and have been removed.
+
+## Licence
+
+The repository ships **no LICENSE file** and GitHub reports no licence for it.
+Treat the content as all rights reserved until one is added.
+
+© Nyuchi Africa (PVT) Ltd, Harare, Zimbabwe.
