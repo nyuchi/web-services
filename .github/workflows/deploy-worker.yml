@@ -1,0 +1,70 @@
+name: Deploy worker
+
+# The static site deploys from deploy.yml on every push to main. This is
+# separate on purpose: the Worker and the page have different blast radii, and
+# a CSS change should not redeploy the thing holding a GitHub App key.
+#
+# Paths-filtered so the two never trigger each other.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'worker/**'
+      - '.github/workflows/deploy-worker.yml'
+  pull_request:
+    paths:
+      - 'worker/**'
+      - '.github/workflows/deploy-worker.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-worker
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: worker
+
+jobs:
+  check:
+    name: Typecheck & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+
+  deploy:
+    name: Deploy
+    # Only from main, and only once the checks pass. A PR gets the checks and
+    # no deploy, which is the whole point of splitting the jobs.
+    if: github.event_name != 'pull_request'
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+      - run: npm ci
+      # CLOUDFLARE_API_TOKEN needs Workers Scripts: Edit on the Nyuchi
+      # account. It does NOT need, and must not be given, access to the
+      # GitHub App key — that is a Worker secret set once with
+      # `wrangler secret put`, never passed through CI.
+      - name: Deploy to Cloudflare
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
