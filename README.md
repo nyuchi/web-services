@@ -42,12 +42,7 @@ redirects renamed owners, but they should be rewritten to `github.com/nyuchi/`.
 Two of them do not redirect anywhere, because the repositories no longer exist
 under those names: `nyuchitech/nyuchi-main` and `nyuchitech/mukoko-docs`.
 
-### The palette is 21 colour families, not five
-
-`styles.css` defines five mineral tokens — cobalt, tanzanite, malachite, gold
-and terracotta — and labels them, in a comment on line 1 and again on lines 4
-and 14, as the "Five African Minerals". That label is wrong, and it is a known
-bug that propagated through several repositories.
+### The palette is 21 colour families, and all seven minerals are here
 
 The shared palette has **21 colour families** in three groups of seven:
 
@@ -57,10 +52,45 @@ The shared palette has **21 colour families** in three groups of seven:
 | Heritage     |     7 | indigo, savanna, baobab, sunset, river, hematite, kalahari       |
 | Experimental |     7 | ember, acacia, fern, lagoon, storm, dusk, protea                 |
 
-This site implements five of the seven minerals. That is a legitimate subset —
-describing it as the whole palette is not. The tokens it does define carry
-WCAG AAA contrast ratios against the site's cream and charcoal grounds, recorded
-in the comments beside each one.
+`styles.css` used to define five minerals and label them "Five African
+Minerals" — a known bug that propagated through several repositories. It now
+carries all seven; sodalite and copper take their values from the Mzizi design
+system.
+
+The site ships **dark mode only**: `--gold`, `--malachite` and the rest alias
+the `-dark` tokens unconditionally, and `body` uses `--bg-dark`. The `-light`
+tokens are defined for reference but never render, so only the dark column
+describes what a visitor actually sees.
+
+Contrast is measured against those grounds rather than asserted. AAA is 7:1;
+AA normal text is 4.5:1.
+
+| Mineral    | Dark token | On charcoal |          | Light token | On cream |            |
+| ---------- | ---------- | ----------: | -------- | ----------- | -------: | ---------- |
+| gold       | `#FFD740`  |     14.19:1 | AAA      | `#5D4037`   |   8.84:1 | AAA        |
+| malachite  | `#64FFDA`  |     15.89:1 | AAA      | `#004D40`   |   9.33:1 | AAA        |
+| cobalt     | `#00B0FF`  |      8.16:1 | AAA      | `#0047AB`   |   8.01:1 | AAA        |
+| tanzanite  | `#B388FF`  |      7.43:1 | AAA      | `#4B0082`   |  12.29:1 | AAA        |
+| terracotta | `#D4A574`  |      8.89:1 | AAA      | `#8B4513`   |   6.74:1 | AA only    |
+| sodalite   | `#3D5AFE`  |      3.86:1 | not text | `#283593`   |   9.86:1 | AAA        |
+| copper     | `#FF8A65`  |      8.56:1 | AAA      | `#BF5A36`   |   4.21:1 | large only |
+
+Two entries are worth stating plainly rather than burying:
+
+- **`--sodalite-dark` is not safe for text.** At 3.86:1 it fails AA for normal
+  text, let alone AAA. Use it for borders, fills and large shapes on AI and
+  Shamwari surfaces. The comment beside the token says so.
+- **`--terracotta-light` was documented as 7.2:1 and measures 6.74:1.** It has
+  never met the AAA claim the file made for it. Light mode does not render, so
+  nothing is broken today, but the number was wrong and is now correct.
+
+### Terracotta has drifted from the design system
+
+The Mzizi design system gives terracotta as `#A0522D` light / `#E1B07E` dark;
+this site carries `#8B4513` / `#D4A574`. The site's values are left in place
+because Mzizi's light value measures 5.33:1 on cream — worse than the one here.
+Aligning them is a design-system decision, not a site fix, and is deliberately
+left open.
 
 ### The npm packages listed here were wrong
 
