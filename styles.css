@@ -1,24 +1,32 @@
-/* CSS Variables - Nyuchi Brand System v6 (Five African Minerals) */
+/* CSS Variables - Nyuchi Brand System v6 (Seven African Minerals) */
 :root {
     /* ========================================
-       Five African Minerals - Light Mode
-       All colors WCAG AAA (7:1+) on cream
+       Seven African Minerals - Light Mode
+       Ratios measured against --bg-light (#FAF9F5).
+       Nothing here is active: the site ships dark-mode only
+       (see "Active Theme" below), so these are reference values.
        ======================================== */
-    --gold-light: #5D4037;        /* 8.84:1 on cream */
-    --malachite-light: #004D40;   /* 9.33:1 on cream */
-    --cobalt-light: #0047AB;      /* 8.01:1 on cream */
-    --tanzanite-light: #4B0082;   /* 12.29:1 on cream */
-    --terracotta-light: #8B4513;  /* 7.2:1 on cream */
+    --gold-light: #5D4037;        /* 8.84:1 on cream - AAA */
+    --malachite-light: #004D40;   /* 9.33:1 on cream - AAA */
+    --cobalt-light: #0047AB;      /* 8.01:1 on cream - AAA */
+    --tanzanite-light: #4B0082;   /* 12.29:1 on cream - AAA */
+    --terracotta-light: #8B4513;  /* 6.74:1 on cream - AA only, not AAA */
+    --sodalite-light: #283593;    /* 9.86:1 on cream - AAA */
+    --copper-light: #BF5A36;      /* 4.21:1 on cream - large text / UI only */
 
     /* ========================================
-       Five African Minerals - Dark Mode
-       All colors WCAG AAA (7:1+) on charcoal
+       Seven African Minerals - Dark Mode
+       Ratios measured against --bg-dark (#0A0A0A). This is the
+       theme that actually renders. AAA is 7:1; AA normal text 4.5:1.
        ======================================== */
-    --gold-dark: #FFD740;         /* 14.19:1 on charcoal - Nyuchi Platform */
-    --malachite-dark: #64FFDA;    /* 15.89:1 on charcoal - Growth, success */
-    --cobalt-dark: #00B0FF;       /* 8.16:1 on charcoal - Links, education */
-    --tanzanite-dark: #B388FF;    /* 7.43:1 on charcoal - Premium, social */
-    --terracotta-dark: #D4A574;   /* 8.5:1 on charcoal - Community, Ubuntu */
+    --gold-dark: #FFD740;         /* 14.19:1 on charcoal - AAA - Nyuchi Platform */
+    --malachite-dark: #64FFDA;    /* 15.89:1 on charcoal - AAA - Growth, success */
+    --cobalt-dark: #00B0FF;       /*  8.16:1 on charcoal - AAA - Links, education */
+    --tanzanite-dark: #B388FF;    /*  7.43:1 on charcoal - AAA - Premium, social */
+    --terracotta-dark: #D4A574;   /*  8.89:1 on charcoal - AAA - Community, Ubuntu */
+    --sodalite-dark: #3D5AFE;     /*  3.86:1 on charcoal - NOT text-safe; borders,
+                                     fills and large shapes only - AI/Shamwari */
+    --copper-dark: #FF8A65;       /*  8.56:1 on charcoal - AAA - Bundu, the commons */
 
     /* Container colors (for backgrounds) */
     --gold-container: #332200;
@@ -26,6 +34,8 @@
     --cobalt-container: #001F3F;
     --tanzanite-container: #1A0033;
     --terracotta-container: #3E1A00;
+    --sodalite-container: #0D1442;
+    --copper-container: #3A1A0E;
 
     /* ========================================
        Active Theme (Dark Mode)
@@ -35,6 +45,8 @@
     --cobalt: var(--cobalt-dark);
     --tanzanite: var(--tanzanite-dark);
     --terracotta: var(--terracotta-dark);
+    --sodalite: var(--sodalite-dark);
+    --copper: var(--copper-dark);
 
     /* Primary colors for Nyuchi Platform (Gold primary) */
     --primary: var(--gold);       /* Gold - Nyuchi Platform primary */
