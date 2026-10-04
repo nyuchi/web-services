@@ -8,7 +8,7 @@ name: Deploy worker
 
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
     paths:
       - 'worker/**'
       - '.github/workflows/deploy-worker.yml'
@@ -48,7 +48,7 @@ jobs:
     name: Deploy
     # Only from main, and only once the checks pass. A PR gets the checks and
     # no deploy, which is the whole point of splitting the jobs.
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: check
     runs-on: ubuntu-latest
     steps:
@@ -65,6 +65,32 @@ jobs:
       # `wrangler secret put`, never passed through CI.
       - name: Deploy to Cloudflare
         run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+  # The beta (nyuchi/.github#84). A push to `staging` uploads a new VERSION of
+  # the Worker with the preview alias `staging`; it is never deployed, so
+  # production (github.shamwari.ai) keeps serving what main deployed. The beta
+  # answers at https://staging-shamwari-github-mcp.nyuchi.workers.dev with the
+  # Worker's own secrets and bindings. Needs preview_urls (wrangler.toml).
+  beta:
+    name: Beta (preview version from staging)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+      - run: npm ci
+      - name: Upload a preview version aliased staging
+        run: >-
+          npx wrangler versions upload --preview-alias staging
+          --message "staging ${GITHUB_SHA::7}"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
