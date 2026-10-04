@@ -499,17 +499,14 @@ async function reviewDiff(
               content: `Repository: ${repo}\n\nAnnotated diff. Lines this change ADDS start with "+" and carry their new-file line number before the "|"; only those are valid finding targets.\n\n${sent}`,
             },
           ],
-          response_format: {
-            type: "json_schema",
-            json_schema: FINDINGS_SCHEMA,
-          },
+          response_format: responseFormat(model),
         },
         // The gateway is the THIRD argument, not a field of the input object —
         // putting it in the input silently does nothing and the call still
         // succeeds, so the mistake shows up as a gateway with no traffic rather
         // than as an error.
         gatewayOptions(env, repo, opts),
-      )) as { response?: unknown; usage?: Record<string, unknown> };
+      )) as ModelResponse;
       const usage = res?.usage ?? {};
       span?.setAttributes({
         "gen_ai.usage.input_tokens":
@@ -525,7 +522,7 @@ async function reviewDiff(
     },
   );
 
-  const { summary, findings } = parseFindings(out?.response);
+  const { summary, findings } = parseFindings(modelOutput(out));
   const { anchored, unanchored } = anchor(findings, addedLines);
 
   return {
@@ -572,6 +569,37 @@ export function gatewayOptions(
       },
     },
   };
+}
+
+/**
+ * A gateway dynamic route (`dynamic/<route>`) speaks the OpenAI chat
+ * completions shape only; a Workers AI model id speaks the native one. The
+ * difference is the structured-output request and where the answer comes
+ * back, so REVIEW_MODEL can name either without a code change.
+ */
+export function isDynamicRoute(model: string): boolean {
+  return model.startsWith("dynamic/");
+}
+
+export function responseFormat(model: string): Record<string, unknown> {
+  return isDynamicRoute(model)
+    ? {
+        type: "json_schema",
+        json_schema: { name: "review_findings", schema: FINDINGS_SCHEMA },
+      }
+    : { type: "json_schema", json_schema: FINDINGS_SCHEMA };
+}
+
+interface ModelResponse {
+  response?: unknown;
+  choices?: Array<{ message?: { content?: unknown } }>;
+  usage?: Record<string, unknown>;
+}
+
+/** The model's answer, from either response shape. */
+export function modelOutput(out: ModelResponse | undefined): unknown {
+  if (out?.response !== undefined) return out.response;
+  return out?.choices?.[0]?.message?.content;
 }
 
 /** The guards that must pass before anything is fetched or spent. */

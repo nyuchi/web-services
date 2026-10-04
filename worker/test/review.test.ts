@@ -12,6 +12,8 @@ import {
   anchor,
   annotateDiff,
   gatewayOptions,
+  modelOutput,
+  responseFormat,
   parseFindings,
   rank,
   renderBody,
@@ -348,4 +350,21 @@ test("asking to post without a head sha fails before the model is paid", async (
     /head commit sha/,
   );
   assert.equal(calls, 0);
+});
+
+test("a dynamic route gets the OpenAI response_format and answer shape", () => {
+  assert.deepEqual(
+    Object.keys(responseFormat("dynamic/review").json_schema as object),
+    ["name", "schema"],
+  );
+  assert.equal(
+    (responseFormat("@cf/zai-org/glm-5.3").json_schema as { type: string })
+      .type,
+    "object",
+  );
+  assert.equal(
+    modelOutput({ choices: [{ message: { content: "{}" } }] }),
+    "{}",
+  );
+  assert.deepEqual(modelOutput({ response: { summary: "" } }), { summary: "" });
 });
