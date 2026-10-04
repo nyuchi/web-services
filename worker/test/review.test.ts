@@ -310,11 +310,11 @@ test("a missing AI binding says what to add rather than throwing on undefined", 
 
 test("gateway metadata attributes cost without naming a person", () => {
   const opts = gatewayOptions(
-    { AI_GATEWAY_ID: "nyuchi-agents" } as unknown as Env,
+    { AI_GATEWAY_ID: "fundi" } as unknown as Env,
     "nyuchi/web-services",
     { trigger: "mention:someone" },
   ) as { gateway: { id: string; skipCache: boolean; metadata: object } };
-  assert.equal(opts.gateway.id, "nyuchi-agents");
+  assert.equal(opts.gateway.id, "fundi");
   assert.equal(opts.gateway.skipCache, true);
   assert.deepEqual(opts.gateway.metadata, {
     worker: "shamwari-github-mcp",
