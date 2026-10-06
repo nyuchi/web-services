@@ -9,6 +9,11 @@
 
 **Live:** [services.nyuchi.com](https://services.nyuchi.com) | **Deploy:** GitHub Pages on push to `main` | **Status:** unchanged since December 2025
 
+> **The GitHub MCP / review Worker moved.** `shamwari-github-mcp`
+> (github.shamwari.ai, Shamwari for GitHub) used to live in `worker/` here. It
+> is now [shamwari-ai/github-app](https://github.com/shamwari-ai/github-app),
+> with its history.
+
 ---
 
 ## What it is
