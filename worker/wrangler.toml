@@ -7,6 +7,9 @@ compatibility_date = "2025-06-01"
 account_id = "125a2dfbc21f76a25c980609609e8218"
 
 workers_dev = true
+# Preview URLs carry the beta: staging-shamwari-github-mcp.nyuchi.workers.dev
+# (the `beta` job in deploy-worker.yml uploads versions, never deploys).
+preview_urls = true
 
 # Custom domain on the nyuchi.dev zone, matching fly.nyuchi.dev. Wrangler
 # provisions the cert and DNS record for the hostname on deploy.
@@ -55,6 +58,15 @@ GITHUB_TOKEN_PERMISSIONS = "pull_requests:write,issues:write,contents:read,metad
 # no default in code. The resource metadata and agent card answer 503 until it
 # is set.
 MCP_RESOURCE_URL = "https://github.shamwari.ai/mcp"
+
+# Other hostnames this same worker answers on. The resource metadata names
+# whichever host served the request (https://<host>/mcp), so it can never
+# disagree with the URL a client connected to. github.nyuchi.dev is listed so
+# it keeps working once it is routed here (the old nyuchi-github-mcp worker
+# served it with MCP_RESOURCE_URL mistyped as github.shmwari.ai, which made
+# every MCP client abandon OAuth). A host not listed here gets the canonical
+# URL above, never a reflection of an arbitrary Host header.
+MCP_RESOURCE_HOSTS = "github.shamwari.ai,github.nyuchi.dev"
 
 # Authorization policy (public, versioned for auditability).
 # Org gate: Nyuchi Africa members only — blocks every other WorkOS org.
